@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="EncodingFixer.EncodingConverterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0"
+               HorizontalAlignment="Right"
+               Content="Source encoding: " />
+
+        <ComboBox Grid.Row="0" Grid.Column="1"
+                  Margin="6"
+                  VerticalAlignment="Center"
+                  SelectedValue="{Binding SourceEncoding}"
+                  ItemsSource="{Binding AllEncodings}" />
+
+        <Label Grid.Row="2" Grid.Column="0"
+               HorizontalAlignment="Right"
+               Content="Target encoding: " />
+
+        <ComboBox Grid.Row="2" Grid.Column="1"
+                  Margin="6"
+                  VerticalAlignment="Center"
+                  SelectedValue="{Binding TargetEncoding}"
+                  ItemsSource="{Binding AllEncodings}" />
+    </Grid>
+</UserControl>
