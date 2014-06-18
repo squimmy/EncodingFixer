@@ -13,5 +13,11 @@ namespace EncodingFixer
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            var controller = new MainController();
+            var mainWindow = new MainWindow() { DataContext = controller.ViewModel };
+            mainWindow.Show();
+        }
     }
 }
