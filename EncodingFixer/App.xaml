@@ -11,5 +11,6 @@
         <DataTemplate DataType="{x:Type main:EncodingConverterViewModel}">
             <main:EncodingConverterView />
         </DataTemplate>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Application.Resources>
 </Application>

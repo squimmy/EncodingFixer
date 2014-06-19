@@ -71,6 +71,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="EncodingDetectorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -84,6 +88,9 @@
       <DependentUpon>EncodingConverterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="EncodingConverterViewModel.cs" />
+    <Compile Include="EncodingDetectorView.xaml.cs">
+      <DependentUpon>EncodingDetectorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainController.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
