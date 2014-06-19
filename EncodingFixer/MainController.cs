@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -76,6 +75,14 @@ namespace EncodingFixer
                 return;
             }
 
+            ViewModel.EncodingDetector.TargetProgress = allEncodings.Count();
+            ViewModel.EncodingDetector.Progress = 0;
+
+            var reporter = new ProgressReporter(
+                allEncodings.Count(),
+                () => Application.Current.Dispatcher.BeginInvoke(
+                    new Action(() => ++ViewModel.EncodingDetector.Progress)));
+
             var encodings = await Task.Run(() =>
             {
                 return (from sourceEncoding in allEncodings.AsParallel()
@@ -83,7 +90,7 @@ namespace EncodingFixer
                         let c = new EncodingConverter(sourceEncoding, targetEncoding)
                         let converted = from source in sourceTexts
                                         select c.Convert(source)
-                        where converted.Any(x => x.Contains(targetText))
+                        where reporter.DoWork(() => converted.Any(x => x.Contains(targetText)))
                         select Tuple.Create(sourceEncoding, targetEncoding)).ToList();
             });
 
@@ -97,6 +104,7 @@ namespace EncodingFixer
                 ViewModel.EncodingConverter.SourceEncoding = encodings.First().Item1.WebName;
                 ViewModel.EncodingConverter.TargetEncoding = encodings.First().Item2.WebName;
             }
+
             ViewModel.EncodingDetector.IsDetectingEncoding = false;
             Mouse.OverrideCursor = null;
             return;
