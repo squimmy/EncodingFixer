@@ -11,8 +11,6 @@ namespace EncodingFixer
 {
     sealed class MainViewModel : BindableBase
     {
-        private readonly EncodingConverter converter;
-
         public ObservableCollection<string> SelectedFiles { get; private set; }
         public ObservableCollection<string> ConvertedFiles { get; private set; }
 
