@@ -14,6 +14,7 @@
 
         <Label Grid.Row="0" Grid.Column="0"
                HorizontalAlignment="Right"
+               VerticalAlignment="Center"
                Content="Source encoding: " />
 
         <ComboBox Grid.Row="0" Grid.Column="1"
@@ -24,6 +25,7 @@
 
         <Label Grid.Row="2" Grid.Column="0"
                HorizontalAlignment="Right"
+               VerticalAlignment="Center"
                Content="Target encoding: " />
 
         <ComboBox Grid.Row="2" Grid.Column="1"
