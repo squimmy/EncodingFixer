@@ -96,9 +96,11 @@
       <DependentUpon>EncodingDetectorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="EncodingDetectorViewModel.cs" />
+    <Compile Include="EncodingSuggestion.cs" />
     <Compile Include="EncodingSuggestionsView.xaml.cs">
       <DependentUpon>EncodingSuggestionsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EncodingSuggestionsViewModel.cs" />
     <Compile Include="MainController.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
