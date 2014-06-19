@@ -18,9 +18,11 @@
                 <Button Content="Convert filenames"
                     Command="{Binding ChooseFiles}" />
             </UniformGrid>
-            <ContentPresenter DockPanel.Dock="Left"
-                              HorizontalAlignment="Left"
-                              Content="{Binding EncodingConverter}" />
+            <StackPanel DockPanel.Dock="Left"
+                        HorizontalAlignment="Left">
+                <ContentPresenter Content="{Binding EncodingConverter}" />
+                <ContentPresenter Content="{Binding EncodingDetector}" />
+            </StackPanel>
         </DockPanel>
         <Grid>
             <Grid.ColumnDefinitions>
