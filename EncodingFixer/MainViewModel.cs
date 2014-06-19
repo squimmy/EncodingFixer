@@ -20,18 +20,21 @@ namespace EncodingFixer
         public ICommand Quit { get; private set; }
         public EncodingConverterViewModel EncodingConverter { get; private set; }
         public EncodingDetectorViewModel EncodingDetector { get; private set; }
+        public EncodingSuggestionsViewModel EncodingSuggestions { get; private set; }
 
         public MainViewModel(Action chooseFiles,
                              Action quit,
                              Action convertFileNames,
                              EncodingConverterViewModel converter,
-                             EncodingDetectorViewModel detector)
+                             EncodingDetectorViewModel detector,
+                             EncodingSuggestionsViewModel suggestions)
         {
             ChooseFiles = new DelegateCommand(chooseFiles);
             Quit = new DelegateCommand(quit);
             ConvertFileNames = new DelegateCommand(convertFileNames);
             EncodingConverter = converter;
             EncodingDetector = detector;
+            EncodingSuggestions = suggestions;
 
             SelectedFiles = new ObservableCollection<string>();
             ConvertedFiles = new ObservableCollection<string>();

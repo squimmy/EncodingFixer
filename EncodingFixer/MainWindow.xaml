@@ -10,19 +10,24 @@
             </MenuItem>
         </Menu>
         <DockPanel DockPanel.Dock="Bottom">
-            <UniformGrid DockPanel.Dock="Right" Rows="1"
-                         HorizontalAlignment="Right"
-                         VerticalAlignment="Bottom">
-                <Button Content="Select files..."
-                    Command="{Binding ChooseFiles}" />
-                <Button Content="Convert filenames"
-                    Command="{Binding ChooseFiles}" />
-            </UniformGrid>
             <StackPanel DockPanel.Dock="Left"
                         HorizontalAlignment="Left">
                 <ContentPresenter Content="{Binding EncodingConverter}" />
                 <ContentPresenter Content="{Binding EncodingDetector}" />
             </StackPanel>
+            <DockPanel>
+                <UniformGrid DockPanel.Dock="Bottom" Rows="1"
+                             HorizontalAlignment="Right"
+                             VerticalAlignment="Bottom">
+                    <Button Content="Select files..."
+                            Command="{Binding ChooseFiles}" />
+                    <Button Content="Convert filenames"
+                            Command="{Binding ChooseFiles}" />
+                </UniformGrid>
+                <ContentPresenter VerticalAlignment="Top"
+                                  HorizontalAlignment="Stretch"
+                                  Content="{Binding EncodingSuggestions}" />
+            </DockPanel>
         </DockPanel>
         <Grid>
             <Grid.ColumnDefinitions>

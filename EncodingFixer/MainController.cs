@@ -22,7 +22,18 @@ namespace EncodingFixer
 
             var detectorVM = new EncodingDetectorViewModel(detectEncoding);
 
-            ViewModel = new MainViewModel(chooseFiles, quit, convertFileNames, converterVM, detectorVM);
+            var suggestionsVM = new EncodingSuggestionsViewModel();
+            suggestionsVM.PropertyChanged += (s, e) =>
+            {
+                if (suggestionsVM.SelectedSuggestion != null)
+                {
+                    ViewModel.EncodingConverter.SourceEncoding = suggestionsVM.SelectedSuggestion.Source;
+                    ViewModel.EncodingConverter.TargetEncoding = suggestionsVM.SelectedSuggestion.Target;
+                }
+            };
+
+
+            ViewModel = new MainViewModel(chooseFiles, quit, convertFileNames, converterVM, detectorVM, suggestionsVM);
         }
 
         private void chooseFiles()
@@ -68,8 +79,7 @@ namespace EncodingFixer
                 || string.IsNullOrEmpty(targetText)
                 || sourceTexts.Any(x => x.Contains(targetText)))
             {
-                ViewModel.EncodingConverter.SourceEncoding = Encoding.UTF8.WebName;
-                ViewModel.EncodingConverter.TargetEncoding = Encoding.UTF8.WebName;
+                resetSuggestions();
                 ViewModel.EncodingDetector.IsDetectingEncoding = false;
                 Mouse.OverrideCursor = null;
                 return;
@@ -91,23 +101,31 @@ namespace EncodingFixer
                         let converted = from source in sourceTexts
                                         select c.Convert(source)
                         where reporter.DoWork(() => converted.Any(x => x.Contains(targetText)))
-                        select Tuple.Create(sourceEncoding, targetEncoding)).ToList();
+                        select new EncodingSuggestion(sourceEncoding.WebName, targetEncoding.WebName)).ToList();
             });
 
             if (encodings.Count == 0)
             {
-                ViewModel.EncodingConverter.SourceEncoding = Encoding.UTF8.WebName;
-                ViewModel.EncodingConverter.TargetEncoding = Encoding.UTF8.WebName;
+                resetSuggestions();
             }
             else
             {
-                ViewModel.EncodingConverter.SourceEncoding = encodings.First().Item1.WebName;
-                ViewModel.EncodingConverter.TargetEncoding = encodings.First().Item2.WebName;
+                ViewModel.EncodingSuggestions.Suggestions.Clear();
+                foreach (var item in encodings)
+                    ViewModel.EncodingSuggestions.Suggestions.Add(item);
+                ViewModel.EncodingSuggestions.SelectedSuggestion = encodings.First();
             }
 
             ViewModel.EncodingDetector.IsDetectingEncoding = false;
             Mouse.OverrideCursor = null;
             return;
+        }
+
+        private void resetSuggestions()
+        {
+            ViewModel.EncodingConverter.SourceEncoding = Encoding.UTF8.WebName;
+            ViewModel.EncodingConverter.TargetEncoding = Encoding.UTF8.WebName;
+            ViewModel.EncodingSuggestions.Suggestions.Clear();
         }
     }
 }
