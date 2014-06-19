@@ -87,8 +87,16 @@ namespace EncodingFixer
                         select Tuple.Create(sourceEncoding, targetEncoding)).ToList();
             });
 
-            ViewModel.EncodingConverter.SourceEncoding = encodings.First().Item1.WebName;
-            ViewModel.EncodingConverter.TargetEncoding = encodings.First().Item2.WebName;
+            if (encodings.Count == 0)
+            {
+                ViewModel.EncodingConverter.SourceEncoding = Encoding.UTF8.WebName;
+                ViewModel.EncodingConverter.TargetEncoding = Encoding.UTF8.WebName;
+            }
+            else
+            {
+                ViewModel.EncodingConverter.SourceEncoding = encodings.First().Item1.WebName;
+                ViewModel.EncodingConverter.TargetEncoding = encodings.First().Item2.WebName;
+            }
             ViewModel.EncodingDetector.IsDetectingEncoding = false;
             Mouse.OverrideCursor = null;
             return;
